@@ -2,7 +2,7 @@
   "name": "budget-buddy",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://niravbarman.github.io/budget-buddy",
+  "homepage": "https://niravbarman.github.io/budget-buddy/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
