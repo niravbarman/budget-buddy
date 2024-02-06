@@ -22,7 +22,7 @@ import BudgetPage, { budgetAction, budgetLoader } from "./pages/BudgetPage";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/budget-buddy/",
     element: <Main />,
     loader: mainLoader,
     errorElement: <Error />,
