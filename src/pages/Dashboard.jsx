@@ -12,7 +12,7 @@ import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
 
 //Helper functions
-import { createBudget, createExpense, fetchData } from "../helpers"
+import { createBudget, createExpense, deleteItem, fetchData } from "../helpers"
 
 //Loader func
 export function dashboardLoader(){
@@ -26,6 +26,7 @@ export function dashboardLoader(){
 export async function dashboardAction({request}) {
     const data = await request.formData();
     const {_action, ...values} = Object.fromEntries(data);
+    
     if(_action === "newUser") {
         try {
             localStorage.setItem("userName", JSON.stringify(values.userName));
@@ -55,6 +56,18 @@ export async function dashboardAction({request}) {
             return toast.success(`Expense ${values.newExpense} created!`);
         } catch (e) {
             throw new Error("There was a problem creating your expense.")
+        }
+    }
+    if(_action === "deleteExpense") {
+        try {
+            deleteItem( {
+                key: "expenses",
+                id: values.id,
+                
+            })
+            return toast.success("Expense deleted!");
+        } catch (e) {
+            throw new Error("There was a problem deleting your expense.")
         }
     }
 }
