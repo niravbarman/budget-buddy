@@ -25,49 +25,52 @@ export function dashboardLoader(){
 //action
 export async function dashboardAction({request}) {
     const data = await request.formData();
-    const {_action, ...values} = Object.fromEntries(data);
-    
-    if(_action === "newUser") {
+    const { _action, ...values } = Object.fromEntries(data);
+
+    // new user submission
+    if (_action === "newUser") {
         try {
-            localStorage.setItem("userName", JSON.stringify(values.userName));
-            return toast.success(`Welcome, ${values.userName}`);
+        localStorage.setItem("userName", JSON.stringify(values.userName));
+        return toast.success(`Welcome, ${values.userName}`);
         } catch (e) {
-            throw new Error("There was a problem creating your account.")
+        throw new Error("There was a problem creating your account.");
         }
     }
-    if(_action === "createBudget") {
+
+    if (_action === "createBudget") {
         try {
-            createBudget( {
-                name: values.newBudget,
-                amount: values.newBudgetAmount
-            })
-            return toast.success("Budget created");
+        createBudget({
+            name: values.newBudget,
+            amount: values.newBudgetAmount,
+        });
+        return toast.success("Budget created!");
         } catch (e) {
-            throw new Error("There was a problem creating your budget.")
+        throw new Error("There was a problem creating your budget.");
         }
     }
-    if(_action === "createExpense") {
+
+    if (_action === "createExpense") {
         try {
-            createExpense( {
-                name: values.newExpense,
-                amount: values.newExpenseAmount,
-                budgetId: values.newExpenseBudget
-            })
-            return toast.success(`Expense ${values.newExpense} created!`);
+        createExpense({
+            name: values.newExpense,
+            amount: values.newExpenseAmount,
+            budgetId: values.newExpenseBudget,
+        });
+        return toast.success(`Expense ${values.newExpense} created!`);
         } catch (e) {
-            throw new Error("There was a problem creating your expense.")
+        throw new Error("There was a problem creating your expense.");
         }
     }
-    if(_action === "deleteExpense") {
+
+    if (_action === "deleteExpense") {
         try {
-            deleteItem( {
-                key: "expenses",
-                id: values.id,
-                
-            })
-            return toast.success("Expense deleted!");
+        deleteItem({
+            key: "expenses",
+            id: values.expenseId,
+        });
+        return toast.success("Expense deleted!");
         } catch (e) {
-            throw new Error("There was a problem deleting your expense.")
+        throw new Error("There was a problem deleting your expense.");
         }
     }
 }
